@@ -40,6 +40,7 @@ const express_1 = __importDefault(require("express"));
 const asignaturaController = __importStar(require("../controllers/asignaturaController"));
 const asignaturaRouter = express_1.default.Router();
 exports.asignaturaRouter = asignaturaRouter;
+//Metodo post -> Crear
 asignaturaRouter.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const newAsignatura = req.body;
     asignaturaController.create(newAsignatura, (err, result) => {
@@ -49,3 +50,12 @@ asignaturaRouter.post('/', (req, res) => __awaiter(void 0, void 0, void 0, funct
         res.status(result.statusCode).json(result);
     });
 }));
+// Método GET -> (Obtener todas las asignaturas)
+asignaturaRouter.get('/', (req, res) => {
+    asignaturaController.findAll((err, result) => {
+        if (err) {
+            return res.status(500).json({ message: err.message });
+        }
+        res.status(200).json(result);
+    });
+});

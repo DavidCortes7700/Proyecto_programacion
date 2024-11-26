@@ -22,30 +22,22 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.profesorRouter = void 0;
 const express_1 = __importDefault(require("express"));
-const profesorController = __importStar(require("../controllers/profesorController"));
+const profesorController = __importStar(require("../controllers/profesorController")); // Asegúrate que el controlador está bien importado
 const profesorRouter = express_1.default.Router();
 exports.profesorRouter = profesorRouter;
-profesorRouter.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const newProfesor = req.body;
-    profesorController.create(newProfesor, (err, result) => {
+// Ruta para crear un profesor
+profesorRouter.post('/', (req, res) => {
+    const profesor = req.body; // El cuerpo de la solicitud contiene los datos del profesor
+    profesorController.create(profesor, (err, result) => {
         if (err) {
             return res.status(500).json({ message: err.message });
         }
         res.status(result.statusCode).json(result);
     });
-}));
+});
